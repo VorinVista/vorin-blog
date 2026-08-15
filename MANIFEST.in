@@ -1,0 +1,3 @@
+recursive-include src/vorin_blog/templates *
+recursive-include src/vorin_blog/static *
+recursive-include src/vorin_blog/migrations *.py

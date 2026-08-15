@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Blog{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Reusable Django blog{% endblock %}">
+    {% block canonical %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'vorin_blog/blog.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="rb-body">
+    <header class="rb-site-header">
+        <div class="rb-shell">
+            <a href="{% url 'vorin_blog:post_list' %}" class="rb-brand">Vorin Blog</a>
+        </div>
+    </header>
+
+    <main class="rb-main">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

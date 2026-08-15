@@ -1,0 +1,52 @@
+{% extends blog_base_template %}
+
+{% block title %}{{ category.name }}{% endblock %}
+{% block meta_description %}{{ category.description|default:category.name }}{% endblock %}
+
+{% block content %}
+<section class="rb-shell rb-section">
+    <p class="rb-kicker">Category</p>
+    <h1>{{ category.name }}</h1>
+    {% if category.description %}
+    <p class="rb-subtitle">{{ category.description }}</p>
+    {% endif %}
+
+    <div class="rb-grid">
+        {% for post in posts %}
+        <article class="rb-card">
+            {% if post.featured_image %}
+            <a href="{{ post.get_absolute_url }}" class="rb-card-image-wrap">
+                <img src="{{ post.featured_image }}" alt="{{ post.featured_image_alt|default:post.title }}" class="rb-card-image">
+            </a>
+            {% endif %}
+            <div class="rb-card-body">
+                <div class="rb-meta">
+                    <span>{{ post.published_at|default:post.created_at|date:"F j, Y" }}</span>
+                </div>
+                <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                {% if post.excerpt %}
+                <p>{{ post.excerpt|truncatewords:24 }}</p>
+                {% endif %}
+            </div>
+        </article>
+        {% empty %}
+        <div class="rb-empty">
+            <h2>No posts in this category yet</h2>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if posts.has_other_pages %}
+    <nav class="rb-pagination">
+        {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}">Next</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock %}
+
